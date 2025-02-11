@@ -24,5 +24,3 @@ spring:
       hibernate:
         format_sql:
           true
-    data-base-platform:
-      org.hibernate.dialect.PostgreSQLDialect
