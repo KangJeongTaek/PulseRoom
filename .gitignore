@@ -44,3 +44,6 @@ out/
 
 ### Redis ###
 /src/main/resources/redis.yaml
+
+### Dockerfile ###
+/Dockerfile
