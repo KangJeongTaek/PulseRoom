@@ -38,3 +38,6 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+### DataBase ###
+/src/main/resources/database.yaml

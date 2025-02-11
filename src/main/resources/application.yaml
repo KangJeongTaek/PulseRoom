@@ -2,3 +2,26 @@ spring:
   application:
     name:
       PulseRoom
+  output:
+    ansi:
+      enabled:
+        always
+## DATABASE
+  config:
+    import : "database.yaml"
+
+## JPA
+  jpa:
+    database:
+      postgresql
+    show-sql:
+      true
+    hibernate:
+      ddl-auto:
+        update
+    properties:
+      hibernate:
+        format_sql:
+          true
+    data-base-platform:
+      org.hibernate.dialect.PostgreSQLDialect
