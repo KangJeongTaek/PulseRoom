@@ -41,3 +41,6 @@ out/
 
 ### DataBase ###
 /src/main/resources/database.yaml
+
+### Redis ###
+/src/main/resources/redis.yaml
