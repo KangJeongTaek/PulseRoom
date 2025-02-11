@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript">
+        document.addEventListener("DOMContentLoaded",function(){
+            visit()
+        })
+
+        async function visit(){
+            try{
+                const response = await fetch("/visit",{
+                    method : 'GET'
+                });
+                if(!response.ok){
+                    document.querySelector(".visit").textContent = "에러 발생! 관리자에게 문의 요구";
+                    return;
+                }
+                const data = await response.json()
+                document.querySelector(".visit").textContent = data.visitCount;
+            }catch (e){
+                document.querySelector(".visit").textContent = "에러 발생! 관리자에게 문의 요구";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1 class="visit"></h1>
+</body>
+</html>
