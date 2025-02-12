@@ -19,7 +19,7 @@ class CommentController {
 
     @GetMapping
     fun comment(httpServletRequest: HttpServletRequest) : String{
-        logger.info("접속 IP : ${httpServletRequest.remoteAddr}")
+        logger.info("comment 접속 IP : ${httpServletRequest.remoteAddr}")
         return "/comment"
     }
 
