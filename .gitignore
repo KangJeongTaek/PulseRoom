@@ -47,3 +47,6 @@ out/
 
 ### Dockerfile ###
 /Dockerfile
+
+### security ###
+/src/main/resources/security.yaml

@@ -6,11 +6,12 @@ spring:
     ansi:
       enabled:
         always
-## DATABASE , REDIS
+## DATABASE , REDIS , SECURITY
   config:
     import :
       - "database.yaml"
       - "redis.yaml"
+      - "security.yaml"
 ## JPA
   jpa:
     database:

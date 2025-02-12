@@ -1,0 +1,28 @@
+package com.kjt.PulseRoom.service
+
+import com.kjt.PulseRoom.model.Visit
+import com.kjt.PulseRoom.repository.VisitRepository
+import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
+@Service
+class PostgresService(
+    private val visitRepository: VisitRepository
+) {
+
+    fun saveVisit(visit : Visit){
+        visitRepository.save(visit)
+    }
+
+    fun yesterdayVisitCount() : Long{
+        val yesterday = LocalDate.now().minusDays(1)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val day= formatter.format(yesterday)
+        return visitRepository.countByDate(day)
+    }
+
+    fun allVisitCount() :Long{
+        return visitRepository.count()
+    }
+}
