@@ -22,6 +22,9 @@ class PulseScheduler(
         val todayVisitCount :Long= redisService.getTodayVisitCount()?.toLong() ?: 0
         logger.info("⚠ 오늘(${LocalDate.now()})의 방문자수 : ${todayVisitCount}")
 
+        val comments = redisService.getAllComment()
+
+
         /* TODO : 메시지 저장 해봐야함*/
 
         redisService.flushAll()
@@ -34,6 +37,9 @@ class PulseScheduler(
         val visitCount = postgresService.allVisitCount()
         redisService.setAllVisitCount(visitCount)
         logger.info("✅ 전체 방문자 수 업데이트 완료: $visitCount")
+
+        postgresService.saveAllComment(comments)
+        logger.info("✅ 전체 글 업데이트 완료: $visitCount")
     }
 
 

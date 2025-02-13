@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="/comment.js"></script>
+    <script src="/js/comment.js"></script>
+    <link rel="stylesheet" href="/css/comment.css"></link>
     <title>Comment</title>
 </head>
 <body>
-    <label for="comment">
-            <input type="text" name="comment" id="comment"/>
-    </label>
-    <button onclick="edit(document.getElementById('comment').value">등록</button>
+    <header>
+        헤더입니다.
+    </header>
+    <div>
+        <div class="input-wrapper">
+            <input type="text" placeholder="오늘의 한 마디" name="comment" class="input" id="comment"/>
+        </div>
+    <button onclick="edit(document.getElementById('comment').value)" id="btn">등록</button>
+    </div>
+    <footer>
+        푸터입니다.
+    </footer>
 </body>
 </html>

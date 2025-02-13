@@ -13,9 +13,9 @@ function onLoad(){
                 return;
             }
             const data = await response.json()
-            document.querySelector(".visitCount").textContent = data.visitCount;
-            document.querySelector(".nickname").textContent = data.nickname;
-            document.querySelector(".message").textContent = data.message;
+            document.querySelector(".yesterdayVisitCount").textContent = data.yesterdayVisitCount;
+            document.querySelector(".nickname").textContent = "안녕하세요" + data.nickname + "님! 오늘도 반갑습니다!";
+            document.querySelector(".hits").textContent = data.hits;
         }catch (e){
             document.querySelector(".visit").textContent = "에러 발생! 관리자에게 문의 요구";
         }

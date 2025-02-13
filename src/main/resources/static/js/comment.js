@@ -8,13 +8,12 @@ async function edit(comment){
             body: JSON.stringify({ comment: comment })
         });
 
+        const responseData = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            alert(`실패\n실패 사유: ${errorData.message}`);
+            alert(`실패\n실패 사유: ${responseData.message}`);
             return;
         }
-
-        const data = await response.json();
 
     } catch (e) {
         alert(`오류 발생: ${e.message}`);

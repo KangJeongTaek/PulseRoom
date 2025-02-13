@@ -1,5 +1,7 @@
 package com.kjt.PulseRoom.service
 
+import com.fasterxml.jackson.core.format.DataFormatMatcher
+import com.kjt.PulseRoom.model.Comment
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
@@ -9,6 +11,9 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Formatter
 import java.util.UUID
 import kotlin.random.Random
 
@@ -23,13 +28,16 @@ class RedisService(
         if(hostIp.isNullOrBlank()){
             throw IllegalArgumentException("잘못된 요청입니다.")
         }
-        val absent = redisTemplate.opsForValue().setIfAbsent("today:visit:user:${hostIp}","OK", Duration.ofDays(1))
-        if(absent == true){
+        val hash = redisTemplate.opsForHash<Any,Any>()
+        val key = "today:visit:user:${hostIp}"
+        val absent = hash.putIfAbsent(key,"hits","1") ?: false
+        if(absent){
             redisTemplate.opsForValue().increment("today:visit:count")
-
-            redisTemplate.opsForValue().set("today:visit:${hostIp}:name",createRandomName(hostIp))
+            hash.put(key,"nickname",createRandomName(hostIp))
+        }else{
+            hash.increment(key,"hits",1)
         }
-        return absent == true
+        return absent
     }
 
     fun getTodayVisitCount(): String?{
@@ -56,9 +64,37 @@ class RedisService(
     }
 
     fun getUser(hostIp: String?) :Map<String,String>{
-        val nickName = redisTemplate.opsForValue().get("today:visit:${hostIp}:name") ?: throw NoSuchElementException("해당 하는 유저가 없습니다.")
+        val user = redisTemplate.opsForHash<Any,Any>().entries("today:visit:user:${hostIp}")
+        val nickName = user["nickname"]?.toString() ?: throw NoSuchElementException("해당 하는 유저가 없습니다.")
+        val hits = user["hits"]?.toString() ?: throw NoSuchElementException("해당 하는 유저가 없습니다.")
+        return mapOf("nickname" to nickName, "hits" to hits)
+    }
 
-        return mapOf("nickname" to nickName)
+    fun addComment(comment:String){
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
+        val timestamp = LocalDateTime.now().format(formatter).toDouble()
+
+        val zSet = redisTemplate.opsForZSet()
+        zSet.add("today:comments",comment,timestamp)
+    }
+
+    fun getAllComment(): List<Comment>{
+        val zSet = redisTemplate.opsForZSet()
+        val commentWithScores = zSet.rangeWithScores("today:comments",0,-1)
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
+        val comments = commentWithScores?.mapNotNull {
+            tuple ->
+            val timestamp = tuple.score?.toLong()?.toString()
+            val comment = tuple.value?.toString()
+
+            if (timestamp == null || comment == null) return@mapNotNull null
+
+            val createDt = LocalDateTime.parse(timestamp,formatter)
+
+            Comment(comment = comment, crtDt = createDt)
+        } ?: emptyList()
+
+        return comments
     }
 
     fun flushAll(){

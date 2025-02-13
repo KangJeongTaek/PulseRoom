@@ -20,15 +20,16 @@ class VisitController(
     fun test(request: HttpServletRequest) : ResponseEntity<Any> {
 
         val firstVisit = redisService.todayFirstVisit(request.remoteAddr)
-        val nickname = redisService.getUser(request.remoteAddr)["nickname"]
+        val user = redisService.getUser(request.remoteAddr)
+        val nickname = user["nickname"]
+        val hits = user["hits"]
 
         if(firstVisit){
-            postgresService.saveVisit(visit = Visit(hostIp = request.remoteAddr, nickname = redisService.getUser(request.remoteAddr)["nickname"]))
+            postgresService.saveVisit(visit = Visit(hostIp = request.remoteAddr, nickname = user["nickname"]))
         }
 
-        val message = if(firstVisit) "first" else "not"
 
         val visitCount = redisService.getVisitCount()
-        return ResponseEntity.ok(mapOf("nickname" to nickname, "message" to message, "visitCount" to visitCount))
+        return ResponseEntity.ok(mapOf("nickname" to nickname,"yesterdayVisitCount" to visitCount, "hits" to hits))
     }
 }
