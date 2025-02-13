@@ -13,8 +13,8 @@ function onLoad(){
                 return;
             }
             const data = await response.json()
-            document.querySelector(".yesterdayVisitCount").textContent = data.yesterdayVisitCount;
-            document.querySelector(".nickname").textContent = "안녕하세요" + data.nickname + "님! 오늘도 반갑습니다!";
+            document.querySelector(".yesterdayVisitCount").textContent = "어제까지의 방문자 수 : " + data.visitCount + "BPM";
+            document.querySelector(".nickname").textContent = "안녕하세요. " + data.nickname + "님! 오늘 당신의 맥박이" + data.hits + "번 기록 되었습니다.";
             document.querySelector(".hits").textContent = data.hits;
         }catch (e){
             document.querySelector(".visit").textContent = "에러 발생! 관리자에게 문의 요구";

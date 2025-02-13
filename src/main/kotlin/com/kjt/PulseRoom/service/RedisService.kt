@@ -59,8 +59,8 @@ class RedisService(
         )
     }
 
-    fun getVisitCount(): String?{
-        return redisTemplate.opsForValue().get("today:visit:count")
+    fun getAllVisitCount(): String?{
+        return redisTemplate.opsForValue().get("visit:count")
     }
 
     fun getUser(hostIp: String?) :Map<String,String>{

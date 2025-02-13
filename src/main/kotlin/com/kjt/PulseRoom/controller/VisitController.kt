@@ -29,7 +29,7 @@ class VisitController(
         }
 
 
-        val visitCount = redisService.getVisitCount()
-        return ResponseEntity.ok(mapOf("nickname" to nickname,"yesterdayVisitCount" to visitCount, "hits" to hits))
+        val visitCount = redisService.getAllVisitCount() ?: 0
+        return ResponseEntity.ok(mapOf("nickname" to nickname,"visitCount" to visitCount, "hits" to hits))
     }
 }
