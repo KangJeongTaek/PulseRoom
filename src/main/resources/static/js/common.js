@@ -13,11 +13,24 @@ function onLoad(){
                 return;
             }
             const data = await response.json()
-            document.querySelector(".yesterdayVisitCount").textContent = "어제까지의 방문자 수 : " + data.visitCount + "BPM";
-            document.querySelector(".nickname").textContent = "안녕하세요. " + data.nickname + "님! 오늘 당신의 맥박이" + data.hits + "번 기록 되었습니다.";
+            document.querySelector(".yesterdayVisitCount").textContent = data.visitCount;
+            document.querySelector(".nickname").textContent = data.nickname;
             document.querySelector(".hits").textContent = data.hits;
+            document.querySelector(".loader").style.setProperty('--heart-beat-rate',heart_beat_rate(data.hits) + 's')
         }catch (e){
             document.querySelector(".visit").textContent = "에러 발생! 관리자에게 문의 요구";
         }
+    }
+}
+
+/* 심장 박동 수 애니메이션 값 구하기*/
+function heart_beat_rate(input) {
+    if (input <= 0) {
+        return 8;
+    } else if (input >= 100) {
+        return 0.5;
+    } else {
+        // 0~100 구간에서 8 → 0.5까지 선형적으로 감소
+        return 8 - (7.5 * (input / 100));
     }
 }
