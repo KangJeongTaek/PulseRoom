@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/TextPlugin.min.js"></script>
     <script src="/js/gsap.js"></script>
+    <script src="/js/card.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="/css/heart_rate.css" rel="stylesheet">
@@ -96,7 +97,7 @@
             <div class="col">
                 <div class="text-center">
                     <span class="h4">오늘 당신의 박동이 </span>
-                    <span class="h3 hits"></span>
+                    <span class="h3 hits text-danger"></span>
                     <span class="h4">번 감지 됐어요!</span>
                 </div>
             </div>
@@ -109,14 +110,18 @@
     <div class="sec vh-75">
         <div class="container main-content mt-5">
             <div class="row">
-                <h1>내가 무슨 말을 해야할지 나도 잘 모르겠어.</h1>
+                <h2>당신의 <span class="text-danger">심장</span>을 뛰게할 오늘의 한 마디</h2>
+                <h1 class="today-comment"></h1>
             </div>
         </div>
     </div>
-    <div class="sec vh-75">
-        <div class="container main-content mt-5">
+    <div class="sticky-bottom">
+        <div class="main-content mt-5 d-flex justify-content-end">
             <div class="card">
-                <div class="chat-header">채팅방</div>
+                <div class="chat-header d-flex justify-content-between">
+                    <div>채팅방</div>
+                    <button class="exit-button exit" onclick="card_minimize()">닫기</button>
+                </div>
                 <div class="chat-window">
                     <ul class="message-list"></ul>
                 </div>
@@ -127,5 +132,10 @@
             </div>
         </div>
     </div>
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Footer Copy Here</p>
+        </div>
+    </footer>
 </body>
 </html>

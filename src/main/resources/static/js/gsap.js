@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
    let firstTop = sections[0].getBoundingClientRect().top;
 
-   console.log(firstTop)
+
 
 
 
@@ -43,8 +43,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                      end: "top top",
                      scrub: 1,
                      pin: true,
-                     pinSpacing : false,
-                     markers : true
+                     pinSpacing : false
                  }
             });
         }
@@ -54,10 +53,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             opacity : 1,
             scrollTrigger :{
                  trigger: sec,
-                 start: "top 50%",
-                 end: `top ${firstTop}`,
-                 scrub: 1,
-                 markers : true
+                 start: "top 60%",
+                 end: `top ${firstTop - 20}`,
+                 toggleActions: "play reverse play reverse"
             }
             });
         }

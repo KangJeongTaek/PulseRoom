@@ -1,5 +1,5 @@
 .card {
-  width: 100%;
+  width: 35%;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -49,6 +49,22 @@
   font-size: 14px;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.exit-button {
+  border: none;
+  outline: none;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.exit-button:hover {
+  background-color: rgb(0,0,0);
+  color: rgb(255,255,255);
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
 }
 
 .send-button:hover {
