@@ -1,12 +1,13 @@
 const socket = new SockJS("/pulse-chat")
 const stompClient = Stomp.over(socket);
 
+stompClient.debug = null;
 stompClient.connect({},function(){
-       stompClient.debug = () => {};
+
 
        stompClient.subscribe("/topic/public",function(message){
             const chatMessage = JSON.parse(message.body);
-            console.log(message);
+            console.log(chatMessage);
             /* TODO : 추가되는 메시지 추가하기*/
        })
 });
