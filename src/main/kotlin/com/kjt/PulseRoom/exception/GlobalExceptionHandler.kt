@@ -16,21 +16,21 @@ class GlobalExceptionHandler {
     /* 잘못된 요청 에러*/
     @ExceptionHandler(IllegalArgumentException::class)
     fun illegalArgumentException (e : IllegalArgumentException): ResponseEntity<Any>{
-        logger.error(e.message)
-        return ResponseEntity.badRequest().body("잘못된 요청")
+        logger.error(e.stackTraceToString())
+        return ResponseEntity.badRequest().body(mapOf("result" to "fail", "msg" to e.message))
     }
 
     /* 없는 유저 요청 */
     @ExceptionHandler(NoSuchElementException::class)
     fun noSuchElementException(e: NoSuchElementException) : ResponseEntity<Any>{
-        logger.error(e.message)
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("존재하지 않는 유저")
+        logger.error(e.stackTraceToString())
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapOf("result" to  "fail", "msg" to "존재하지 않는 유저"))
     }
 
     /* DB 관련  */
     @ExceptionHandler(DataAccessException::class)
     fun dataAccessException(e: DataAccessException) : ResponseEntity<Any>{
-        logger.error(e.message)
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("내부 서버 오류 발생")
+        logger.error(e.stackTraceToString())
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(mapOf("result" to "fail", "msg" to "내부 서버 오류 발생"))
     }
 }

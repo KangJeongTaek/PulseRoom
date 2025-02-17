@@ -1,6 +1,5 @@
 package com.kjt.PulseRoom.controller
 
-import com.kjt.PulseRoom.model.Comment
 import com.kjt.PulseRoom.service.PostgresService
 import com.kjt.PulseRoom.service.RedisService
 import jakarta.servlet.http.HttpServletRequest
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-@RequestMapping("/comment")
 class CommentController(
     private val redisService: RedisService,
     private val postgresService: PostgresService
@@ -23,15 +20,16 @@ class CommentController(
 
     private val logger : Logger = LoggerFactory.getLogger(CommentController::class.java)
 
-    @GetMapping
-    fun comment(httpServletRequest: HttpServletRequest) : String{
-        logger.info("comment 접속 IP : ${httpServletRequest.remoteAddr}")
-        return "/comment"
+    @GetMapping("/admin")
+    fun admin(httpServletRequest: HttpServletRequest) : String{
+        logger.info("관리 페이지 접속 IP : ${httpServletRequest.remoteAddr}")
+        return "/admin"
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/comment/edit")
     fun edit(@RequestBody(required = true) commentDTO: CommentDTO) :ResponseEntity<Any>{
         val comment = commentDTO.comment
+        if(comment.isBlank()) throw IllegalArgumentException("빈 값을 넣지 마시오.")
         redisService.addComment(commentDTO.comment)
 
 

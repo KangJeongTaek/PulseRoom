@@ -26,12 +26,15 @@ class SecurityConfig(
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers("/posts/**").authenticated()
+                    .requestMatchers("/pulse-chat/**").permitAll()
+                    .requestMatchers("/admin/**").authenticated()
                     .requestMatchers("/comment/**").authenticated()
                     .anyRequest().permitAll()
             }
             .httpBasic(Customizer.withDefaults())
             .formLogin { it.disable() }
-            .csrf { it.ignoringRequestMatchers("/posts/**").ignoringRequestMatchers("/comment/**") }
+            .cors {  }
+            .csrf { it.ignoringRequestMatchers("/posts/**").ignoringRequestMatchers("/comment/**").ignoringRequestMatchers("/pulse-chat/**").disable() }
 
         return http.build()
     }

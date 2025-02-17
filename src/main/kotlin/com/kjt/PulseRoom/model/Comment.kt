@@ -11,7 +11,7 @@ class Comment(
     @Column(name = "comment_no", nullable = false)
     val commentNo : Long ? = null,
 
-    @Column(name = "comment", nullable = false, length = 100)
+    @Column(name = "host_ip", nullable = false, length = 100)
     val comment : String,
 
     @Column(name = "crtDt", length = 20)

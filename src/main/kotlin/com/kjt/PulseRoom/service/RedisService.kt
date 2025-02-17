@@ -1,6 +1,7 @@
 package com.kjt.PulseRoom.service
 
 import com.fasterxml.jackson.core.format.DataFormatMatcher
+import com.kjt.PulseRoom.model.Chat
 import com.kjt.PulseRoom.model.Comment
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
@@ -78,6 +79,22 @@ class RedisService(
         zSet.add("today:comments",comment,timestamp)
     }
 
+    fun getLastComment() : Comment?{
+        val zSet = redisTemplate.opsForZSet()
+        val commentWithScores = zSet.rangeWithScores("today:comments",-1,-1) ?: return null
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
+        if(commentWithScores.isEmpty()) return null
+        val comment = commentWithScores.map {
+            tuple ->
+            val timeStamp = tuple.score?.toLong()?.toString()
+            val comment = tuple.value?.toString()
+            if (timeStamp == null || comment == null) return null
+            val crtDt = LocalDateTime.parse(timeStamp,formatter)
+            Comment(comment = comment, crtDt = crtDt)
+        }
+        return comment[0]
+    }
+
     fun getAllComment(): List<Comment>{
         val zSet = redisTemplate.opsForZSet()
         val commentWithScores = zSet.rangeWithScores("today:comments",0,-1)
@@ -142,4 +159,6 @@ class RedisService(
 
         return "$adjective $noun"
     }
+
+
 }

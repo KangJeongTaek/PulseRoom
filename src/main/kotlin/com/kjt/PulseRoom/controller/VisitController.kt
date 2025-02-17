@@ -30,6 +30,7 @@ class VisitController(
 
 
         val visitCount = redisService.getAllVisitCount() ?: 0
-        return ResponseEntity.ok(mapOf("nickname" to nickname,"visitCount" to visitCount, "hits" to hits))
+        val todayComment = redisService.getLastComment()?.comment ?: "아직 오늘의 한 마디가 등록되지 않았습니다."
+        return ResponseEntity.ok(mapOf("nickname" to nickname,"visitCount" to visitCount, "hits" to hits, "todayComment" to todayComment))
     }
 }

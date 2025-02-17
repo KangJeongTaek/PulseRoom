@@ -5,8 +5,15 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
+import org.springframework.data.redis.connection.stream.MapRecord
+import org.springframework.data.redis.connection.stream.ObjectRecord
+import org.springframework.data.redis.connection.stream.Record
+import org.springframework.data.redis.connection.stream.StreamOffset
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
+import org.springframework.data.redis.stream.StreamListener
+import org.springframework.data.redis.stream.StreamMessageListenerContainer
+import kotlin.time.Duration
 
 
 @Configuration
@@ -33,4 +40,23 @@ class RedisConfig {
         template.hashValueSerializer = StringRedisSerializer()
         return template
     }
+
+    @Bean
+    fun streamMessageListenerContainer(
+        redisStreamListener: StreamListener<String,MapRecord<String,String,String>>
+    ) : StreamMessageListenerContainer<String, MapRecord<String, String, String>>? {
+        val option : StreamMessageListenerContainer.StreamMessageListenerContainerOptions<String, MapRecord<String, String, String>>?
+        =  StreamMessageListenerContainer.StreamMessageListenerContainerOptions.builder()
+            .pollTimeout(java.time.Duration.ofMillis(100))
+            .build()
+        val container = StreamMessageListenerContainer.create(redisConnectionFactory(),option)
+        container.receive(
+            StreamOffset.latest("chat"),
+            redisStreamListener
+        )
+        container.start()
+        return container
+    }
+
+
 }

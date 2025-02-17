@@ -11,11 +11,11 @@ async function edit(comment){
         const responseData = await response.json();
 
         if (!response.ok) {
-            alert(`실패\n실패 사유: ${responseData.message}`);
+            alert(`실패\n실패 사유: ${responseData.msg}`);
             return;
         }
 
     } catch (e) {
-        alert(`오류 발생: ${e.message}`);
+        alert(`오류 발생: ${e.msg}`);
     }
 }

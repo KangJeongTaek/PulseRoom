@@ -1,7 +1,9 @@
 package com.kjt.PulseRoom.service
 
+import com.kjt.PulseRoom.model.Chat
 import com.kjt.PulseRoom.model.Comment
 import com.kjt.PulseRoom.model.Visit
+import com.kjt.PulseRoom.repository.ChatRepository
 import com.kjt.PulseRoom.repository.CommentRepository
 import com.kjt.PulseRoom.repository.VisitRepository
 import org.springframework.stereotype.Service
@@ -11,7 +13,8 @@ import java.time.format.DateTimeFormatter
 @Service
 class PostgresService(
     private val visitRepository: VisitRepository,
-    private val commentRepository: CommentRepository
+    private val commentRepository: CommentRepository,
+    private val chatRepository: ChatRepository
 ) {
 
     fun saveVisit(visit : Visit){
@@ -31,5 +34,9 @@ class PostgresService(
 
     fun allVisitCount() :Long{
         return visitRepository.count()
+    }
+
+    fun saveAllChats(chats : List<Chat>){
+        chatRepository.saveAll(chats)
     }
 }

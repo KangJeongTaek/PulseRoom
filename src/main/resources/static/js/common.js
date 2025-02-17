@@ -17,6 +17,7 @@ function onLoad(){
             document.querySelector(".nickname").textContent = data.nickname;
             document.querySelector(".hits").textContent = data.hits;
             document.querySelector(".loader").style.setProperty('--heart-beat-rate',heart_beat_rate(data.hits) + 's')
+            document.querySelector(".today-comment").textContent = data.todayComment;
         }catch (e){
             document.querySelector(".visit").textContent = "에러 발생! 관리자에게 문의 요구";
         }
