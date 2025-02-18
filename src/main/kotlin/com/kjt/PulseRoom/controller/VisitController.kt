@@ -1,6 +1,7 @@
 package com.kjt.PulseRoom.controller
 
 import com.kjt.PulseRoom.model.Visit
+import com.kjt.PulseRoom.service.ChatService
 import com.kjt.PulseRoom.service.PostgresService
 import com.kjt.PulseRoom.service.RedisService
 import jakarta.servlet.http.HttpServletRequest
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class VisitController(
     private val redisService: RedisService,
-    private val postgresService: PostgresService
+    private val postgresService: PostgresService,
+    private val chatService: ChatService
 ) {
     private val logger = LoggerFactory.getLogger(VisitController::class.java)
 
@@ -31,6 +33,7 @@ class VisitController(
 
         val visitCount = redisService.getAllVisitCount() ?: 0
         val todayComment = redisService.getLastComment()?.comment ?: "아직 오늘의 한 마디가 등록되지 않았습니다."
-        return ResponseEntity.ok(mapOf("nickname" to nickname,"visitCount" to visitCount, "hits" to hits, "todayComment" to todayComment))
+        val todayChat = chatService.getChatHistory()
+        return ResponseEntity.ok(mapOf("nickname" to nickname,"visitCount" to visitCount, "hits" to hits, "todayComment" to todayComment, "todayChat" to todayChat))
     }
 }

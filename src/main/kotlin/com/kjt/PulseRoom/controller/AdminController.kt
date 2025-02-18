@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 class CommentController(
@@ -31,7 +30,6 @@ class CommentController(
         val comment = commentDTO.comment
         if(comment.isBlank()) throw IllegalArgumentException("빈 값을 넣지 마시오.")
         redisService.addComment(commentDTO.comment)
-
 
         return ResponseEntity.ok(mapOf("result" to "성공", "msg" to "오늘도 화이팅이야!"))
     }

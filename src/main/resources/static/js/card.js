@@ -54,4 +54,3 @@ function card_minimize(){
         }
     )
 }
-/* TODO : 최소화 최대화 버튼 만들기*/

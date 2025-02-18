@@ -42,7 +42,7 @@ class ChatService(
             val timestamp = message.id.timestamp
             val crtDt = LocalDateTime.ofInstant(timestamp?.let { Instant.ofEpochMilli(it) }, ZoneId.systemDefault())
 
-            logger.info("메시지 : $hostIp, $content, $timestamp, $crtDt")
+
             Chat(hostIp = hostIp, content = content, crtDt = crtDt)
         } ?: emptyList()
     }

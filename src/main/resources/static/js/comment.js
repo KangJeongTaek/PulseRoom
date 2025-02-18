@@ -9,13 +9,17 @@ async function edit(comment){
         });
 
         const responseData = await response.json();
-
+        console.log(responseData);
         if (!response.ok) {
             alert(`실패\n실패 사유: ${responseData.msg}`);
             return;
         }
+        if(response.ok){
+            alert(`등록 완료! ${responseData.msg}`);
+        }
 
     } catch (e) {
-        alert(`오류 발생: ${e.msg}`);
+        console.log(e);
+        alert(`오류 발생: ${e}`);
     }
 }
