@@ -1,6 +1,6 @@
 package com.kjt.PulseRoom.scheduler
 
-import com.kjt.PulseRoom.service.ChatService
+import com.kjt.PulseRoom.chat.service.ChatService
 import com.kjt.PulseRoom.service.PostgresService
 import com.kjt.PulseRoom.service.RedisService
 import org.slf4j.LoggerFactory
@@ -27,7 +27,6 @@ class PulseScheduler(
         val comments = redisService.getAllComment()
 
 
-        /* TODO : 채팅 저장 해봐야함*/
         val chats = chatService.getChatHistory()
         redisService.flushAll()
         logger.info("🗑 Redis 데이터 초기화 완료")
@@ -43,7 +42,7 @@ class PulseScheduler(
         postgresService.saveAllComment(comments)
         logger.info("✅ 전체 글 업데이트 완료 : ${comments.size}")
 
-        postgresService.saveAllChats(chats)
+        chatService.saveAllChats(chats)
         logger.info("✅ 전체 채팅 저장 완료 : ${chats.size}")
 
     }

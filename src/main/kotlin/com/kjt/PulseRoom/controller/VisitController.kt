@@ -1,7 +1,7 @@
 package com.kjt.PulseRoom.controller
 
 import com.kjt.PulseRoom.model.Visit
-import com.kjt.PulseRoom.service.ChatService
+import com.kjt.PulseRoom.chat.service.ChatService
 import com.kjt.PulseRoom.service.PostgresService
 import com.kjt.PulseRoom.service.RedisService
 import jakarta.servlet.http.HttpServletRequest

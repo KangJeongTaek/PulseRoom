@@ -1,10 +1,9 @@
 package com.kjt.PulseRoom.service;
 
-import com.kjt.PulseRoom.model.Chat
+import com.kjt.PulseRoom.chat.model.Chat
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.stream.MapRecord
 import org.springframework.data.redis.stream.StreamListener
-import org.springframework.data.redis.stream.StreamMessageListenerContainer
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import java.time.Instant
@@ -15,6 +14,7 @@ import java.time.ZoneId
 class RedisStreamListener (
     private val simpleMessageSendingOperations:SimpMessageSendingOperations
 ) : StreamListener<String, MapRecord<String, String, String>>{
+
     private val logger = LoggerFactory.getLogger(RedisStreamListener::class.java)
 
     override fun onMessage(message: MapRecord<String, String, String>?) {

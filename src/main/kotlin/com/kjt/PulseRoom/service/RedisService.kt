@@ -1,11 +1,7 @@
 package com.kjt.PulseRoom.service
 
-import com.fasterxml.jackson.core.format.DataFormatMatcher
-import com.kjt.PulseRoom.model.Chat
 import com.kjt.PulseRoom.model.Comment
-import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.RedisServerCommands
 import org.springframework.data.redis.core.RedisTemplate
@@ -14,7 +10,6 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Formatter
 import java.util.UUID
 import kotlin.random.Random
 
@@ -114,12 +109,6 @@ class RedisService(
         return comments
     }
 
-    fun flushAll(){
-        redisTemplate.connectionFactory?.
-        connection?.
-        serverCommands()?.
-        flushAll(RedisServerCommands.FlushOption.ASYNC)
-    }
 
 
     private fun createRandomName(hostIp : String?) : String{

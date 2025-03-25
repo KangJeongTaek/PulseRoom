@@ -1,5 +1,6 @@
-package com.kjt.PulseRoom.model
+package com.kjt.PulseRoom.chat.model
 
+import com.kjt.PulseRoom.chat.dto.ChatDTO
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -28,5 +29,14 @@ class Chat(
 
 ) {
 
+    companion object{
+        fun toDTO(entity: Chat): ChatDTO {
+            return ChatDTO(
+                content = entity.content,
+                hostIp = entity.hostIp,
+                crtDt = entity.crtDt
+            )
+        }
+    }
 
 }
