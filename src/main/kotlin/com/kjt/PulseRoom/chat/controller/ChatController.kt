@@ -3,13 +3,11 @@ package com.kjt.PulseRoom.chat.controller
 import com.kjt.PulseRoom.chat.dto.ChatDTO
 import com.kjt.PulseRoom.chat.service.ChatService
 import org.springframework.stereotype.Controller
-import com.kjt.PulseRoom.common.redis.RedisManager
+import com.kjt.PulseRoom.common.redis.manager.RedisManager
 import org.slf4j.LoggerFactory
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor
-import org.springframework.messaging.simp.annotation.SubscribeMapping
-import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
 class ChatController(

@@ -1,8 +1,6 @@
-package com.kjt.PulseRoom.model
+package com.kjt.PulseRoom.visit.model
 
 import jakarta.persistence.*
-import org.hibernate.annotations.BatchSize
-import org.hibernate.annotations.ColumnDefault
 import java.time.Instant
 
 @Entity

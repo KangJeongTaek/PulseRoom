@@ -1,11 +1,9 @@
 package com.kjt.PulseRoom.service
 
-import com.kjt.PulseRoom.chat.model.Chat
-import com.kjt.PulseRoom.model.Comment
-import com.kjt.PulseRoom.model.Visit
-import com.kjt.PulseRoom.chat.repository.ChatRepository
-import com.kjt.PulseRoom.repository.CommentRepository
-import com.kjt.PulseRoom.repository.VisitRepository
+import com.kjt.PulseRoom.comment.model.Comment
+import com.kjt.PulseRoom.visit.model.Visit
+import com.kjt.PulseRoom.comment.repository.CommentRepository
+import com.kjt.PulseRoom.visit.repository.VisitRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

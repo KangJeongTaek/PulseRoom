@@ -1,9 +1,8 @@
 package com.kjt.PulseRoom.service
 
-import com.kjt.PulseRoom.model.Comment
+import com.kjt.PulseRoom.comment.model.Comment
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.RedisConnectionFactory
-import org.springframework.data.redis.connection.RedisServerCommands
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
 import java.time.Duration
