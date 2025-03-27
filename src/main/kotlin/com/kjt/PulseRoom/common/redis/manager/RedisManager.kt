@@ -6,7 +6,9 @@ import org.springframework.data.redis.connection.stream.MapRecord
 import org.springframework.data.redis.connection.stream.StreamOffset
 import org.springframework.data.redis.connection.stream.StreamReadOptions
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.ZSetOperations
 import org.springframework.stereotype.Service
+import java.time.Duration
 
 @Service
 class RedisManager(
@@ -20,6 +22,15 @@ class RedisManager(
         }catch (e : NullPointerException) {
             null
         }
+    }
+
+    // set
+    fun set(key: String, value: Any){
+        redisTemplate.opsForValue().set(key, value)
+    }
+
+    fun set(key:String,value:Any,timeOut :Duration){
+        redisTemplate.opsForValue().set(key,value,timeOut)
     }
 
     // 특정 스트림에 추가
@@ -76,6 +87,16 @@ class RedisManager(
     // increase
     fun increment(key : String,delta:Double) : Double?{
         return redisTemplate.opsForValue().increment(key,delta)
+    }
+
+    // zsetAdd
+    fun zsetAdd(key : String,value : Any, score : Double){
+        redisTemplate.opsForZSet().add(key, value, score)
+    }
+
+    // zsetRangeWithScores
+    fun zsetRangeWithScores(key : String,start:Long,end :Long): MutableSet<ZSetOperations.TypedTuple<Any>>? {
+        return redisTemplate.opsForZSet().rangeWithScores(key,start,end)
     }
 
 }

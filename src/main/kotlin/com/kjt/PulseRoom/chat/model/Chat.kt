@@ -24,7 +24,7 @@ class Chat(
     val content : String,
 
     @Column(name = "crtDt", length = 20)
-    val crtDt : LocalDateTime ?= null
+    val crtDt : LocalDateTime ?= LocalDateTime.now()
 
 
 ) {

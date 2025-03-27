@@ -1,11 +1,11 @@
-async function edit(comment){
+async function edit(content){
     try{
-        const response = await fetch("/comment/edit", {
+        const response = await fetch("/dailyMessage", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ comment: comment })
+            body: JSON.stringify({ content: content })
         });
 
         const responseData = await response.json();

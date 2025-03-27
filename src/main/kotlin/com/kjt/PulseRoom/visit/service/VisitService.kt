@@ -3,11 +3,14 @@ package com.kjt.PulseRoom.visit.service
 import com.kjt.PulseRoom.common.util.Util.Companion.createRandomName
 import com.kjt.PulseRoom.visit.model.Visit
 import org.springframework.stereotype.Service
+import java.time.Duration
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Service
 class VisitService(
-   private val visitRedisService: visitRedisService,
-    private val visitPostgresService: visitPostgresService,
+    private val visitRedisService: VisitRedisService,
+    private val visitPostgresService: VisitPostgresService,
 ) {
 
     fun visit(hostIp: String?) {
@@ -36,4 +39,28 @@ class VisitService(
     fun getVisitCount() : String{
         return visitRedisService.getAllVisitCount()
     }
+
+    fun getDailyVisitCount() : String{
+        return visitRedisService.getDailyVisitCount()
+    }
+
+    fun setYesterdayVisitCount(count : Long){
+        visitRedisService.setYesterdayVisitCount(count)
+    }
+
+    fun setAllVisitCount(count : Long){
+        visitRedisService.setAllVisitCount(count)
+    }
+
+    fun getYesterdayVisitCount() : Long{
+        val yesterday = LocalDate.now().minusDays(1)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val day= formatter.format(yesterday)
+        return visitPostgresService.getVisitCountByDate(day)
+    }
+
+    fun getAllVisitCount() : Long{
+        return visitPostgresService.getAllVisitCount()
+    }
+
 }
