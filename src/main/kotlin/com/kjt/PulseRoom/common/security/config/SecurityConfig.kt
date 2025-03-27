@@ -22,13 +22,13 @@ class SecurityConfig(
                     .requestMatchers("/posts/**").authenticated()
                     .requestMatchers("/pulse-chat/**").permitAll()
                     .requestMatchers("/admin/**").authenticated()
-                    .requestMatchers("/comment/**").authenticated()
+                    .requestMatchers("/dailyMessage/**").authenticated()
                     .anyRequest().permitAll()
             }
             .httpBasic(Customizer.withDefaults())
             .formLogin { it.disable() }
             .cors {  }
-            .csrf { it.ignoringRequestMatchers("/posts/**").ignoringRequestMatchers("/comment/**").ignoringRequestMatchers("/pulse-chat/**").disable() }
+            .csrf { it.ignoringRequestMatchers("/posts/**").ignoringRequestMatchers("/dailyMessage/**").ignoringRequestMatchers("/pulse-chat/**").disable() }
 
         return http.build()
     }
